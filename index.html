@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>和ごころ ── 日本の伝統医学を知る</title>
+<meta name="description" content="漢方薬・漢方診療・鍼灸・あん摩マッサージなど、日本の伝統医学をやさしく学べる啓発サイト。歴史、考え方、科学的な根拠までを一般の方にもわかりやすく紹介します。">
+<style>
+  :root{
+    --ink:#2b2420;
+    --sub:#6a5f57;
+    --paper:#fbf7f0;
+    --paper2:#f3ece0;
+    --accent:#7c9a6a;      /* 薬草の緑 */
+    --accent-d:#5c7a4c;
+    --crimson:#9c4a3c;     /* 朱 */
+    --gold:#b89150;
+    --line:#e2d8c8;
+    --card:#ffffff;
+    --shadow:0 6px 24px rgba(60,44,30,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+    color:var(--ink);background:var(--paper);line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sans{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+  a{color:var(--accent-d);text-decoration:none}
+  img{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  section{padding:84px 0}
+  h2.title{font-size:2rem;letter-spacing:.08em;text-align:center;margin-bottom:.4em}
+  h2.title .en{display:block;font-size:.72rem;letter-spacing:.35em;color:var(--accent);font-family:sans-serif;margin-bottom:.6em}
+  .lead{text-align:center;color:var(--sub);max-width:640px;margin:0 auto 52px;font-size:1.02rem}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,247,240,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-size:1.28rem;letter-spacing:.14em;font-weight:600}
+  .logo small{font-size:.6rem;letter-spacing:.3em;color:var(--accent);display:block;font-family:sans-serif}
+  .navlinks{display:flex;gap:26px;font-family:sans-serif;font-size:.86rem}
+  .navlinks a{color:var(--ink);letter-spacing:.05em}
+  .navlinks a:hover{color:var(--accent-d)}
+  .menu-btn{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink)}
+
+  /* Hero */
+  .hero{position:relative;text-align:center;padding:120px 0 110px;
+    background:
+      radial-gradient(1200px 500px at 50% -10%, #eef2e6 0%, transparent 60%),
+      linear-gradient(180deg,#f7f2e8,#fbf7f0);
+    overflow:hidden}
+  .hero .seal{position:absolute;font-size:22rem;color:rgba(156,74,60,.05);top:50%;left:50%;transform:translate(-50%,-50%);font-weight:700;pointer-events:none;user-select:none}
+  .hero h1{position:relative;font-size:3rem;letter-spacing:.14em;line-height:1.5;margin-bottom:.5em}
+  .hero p{position:relative;color:var(--sub);font-size:1.1rem;max-width:600px;margin:0 auto 2em}
+  .hero .cta{position:relative;display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .btn{font-family:sans-serif;font-size:.9rem;letter-spacing:.06em;padding:14px 30px;border-radius:40px;border:1.5px solid var(--accent-d);color:var(--accent-d);background:transparent;cursor:pointer;transition:.25s}
+  .btn:hover{background:var(--accent-d);color:#fff}
+  .btn.fill{background:var(--accent-d);color:#fff}
+  .btn.fill:hover{background:var(--accent);border-color:var(--accent)}
+
+  /* Intro strip */
+  .strip{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .strip .wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;padding-top:44px;padding-bottom:44px;text-align:center}
+  .stat .num{font-size:2.2rem;color:var(--crimson);font-weight:600;font-family:sans-serif}
+  .stat .lbl{font-size:.82rem;color:var(--sub);font-family:sans-serif;letter-spacing:.03em}
+  .stripnote{grid-column:1/-1;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);font-family:sans-serif;font-size:.78rem;line-height:1.85;color:var(--sub);text-align:left}
+  .stripnote b{color:var(--ink);font-weight:600}
+
+  /* Cards */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:32px 28px;box-shadow:var(--shadow);transition:.25s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(60,44,30,.12)}
+  .card .ic{font-size:2rem;margin-bottom:.4em}
+  .card h3{font-size:1.22rem;letter-spacing:.05em;margin-bottom:.5em}
+  .card p{color:var(--sub);font-size:.95rem}
+  .tag{display:inline-block;font-family:sans-serif;font-size:.72rem;color:var(--accent-d);background:#eef2e6;border-radius:20px;padding:3px 12px;margin-top:14px;letter-spacing:.05em}
+
+  /* 気血水 */
+  .kbs{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:10px}
+  .kbs .item{text-align:center;padding:34px 22px;border-radius:14px;color:#fff;position:relative;overflow:hidden}
+  .kbs .item:nth-child(1){background:linear-gradient(160deg,#8aa87a,#5c7a4c)}
+  .kbs .item:nth-child(2){background:linear-gradient(160deg,#b56a5b,#8a3e30)}
+  .kbs .item:nth-child(3){background:linear-gradient(160deg,#6f9bb0,#436a80)}
+  .kbs .item .big{font-size:2.6rem;font-weight:700;display:block;margin-bottom:.2em}
+  .kbs .item p{font-size:.92rem;opacity:.95}
+
+  /* Timeline */
+  .tl{position:relative;max-width:760px;margin:0 auto;padding-left:20px}
+  .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tl .ev{position:relative;padding:0 0 34px 34px}
+  .tl .ev::before{content:"";position:absolute;left:-1px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--paper)}
+  .tl .ev .yr{font-family:sans-serif;font-size:.82rem;color:var(--crimson);letter-spacing:.08em;font-weight:600}
+  .tl .ev h4{font-size:1.08rem;margin:.15em 0 .3em}
+  .tl .ev p{color:var(--sub);font-size:.93rem}
+
+  /* Evidence table */
+  .tbl{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);font-family:sans-serif;font-size:.92rem}
+  .tbl th,.tbl td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line)}
+  .tbl th{background:var(--accent-d);color:#fff;font-weight:500;letter-spacing:.04em}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl td:first-child{font-weight:600;color:var(--crimson);white-space:nowrap}
+
+  /* FAQ */
+  .faq{max-width:800px;margin:0 auto}
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden}
+  summary{cursor:pointer;padding:20px 24px;font-size:1.02rem;list-style:none;position:relative;letter-spacing:.03em;font-family:sans-serif}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"＋";position:absolute;right:24px;color:var(--accent);transition:.2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details .body{padding:0 24px 22px;color:var(--sub);font-size:.95rem}
+
+  /* Notice */
+  .notice{background:#fbf3ea;border:1px solid #ecdcc6;border-left:4px solid var(--gold);border-radius:10px;padding:22px 26px;color:#6a5238;font-size:.92rem;max-width:820px;margin:0 auto}
+  .notice strong{color:var(--crimson)}
+
+  /* Footer */
+  footer{background:#2b2420;color:#d9cdbe;padding:56px 0 30px;font-family:sans-serif}
+  footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:36px}
+  footer h5{color:#fff;font-size:.95rem;letter-spacing:.08em;margin-bottom:14px}
+  footer a{color:#c8bcaa;font-size:.86rem;display:block;margin-bottom:8px}
+  footer a:hover{color:var(--accent)}
+  footer .flogo{font-size:1.3rem;color:#fff;letter-spacing:.14em;margin-bottom:12px}
+  footer .copy{border-top:1px solid #443a31;padding-top:20px;font-size:.78rem;color:#9a8d7d;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
+  .reveal.show{opacity:1;transform:none}
+
+  @media(max-width:820px){
+    .navlinks{position:fixed;top:66px;right:0;left:0;background:var(--paper);flex-direction:column;gap:0;border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:.3s}
+    .navlinks.open{max-height:400px}
+    .navlinks a{padding:15px 24px;border-top:1px solid var(--line)}
+    .menu-btn{display:block}
+    .hero h1{font-size:2.1rem}
+    .strip .wrap{grid-template-columns:repeat(2,1fr);gap:30px 20px}
+    .grid,.grid.three,.kbs{grid-template-columns:1fr}
+    footer .cols{grid-template-columns:1fr}
+    section{padding:60px 0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">和ごころ<small>JAPANESE TRADITIONAL MEDICINE</small></div>
+      <div class="navlinks" id="nav">
+        <a href="#about">伝統医学とは</a>
+        <a href="#kampo">漢方薬</a>
+        <a href="#thought">考え方</a>
+        <a href="#therapy">鍼灸・あん摩</a>
+        <a href="#history">歴史</a>
+        <a href="#evidence">科学的根拠</a>
+        <a href="#faq">Q&amp;A</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="メニュー">☰</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="seal">和</span>
+  <div class="wrap">
+    <h1>くらしに息づく、<br>日本の伝統医学</h1>
+    <p>千数百年をかけて日本で育まれた漢方。<br>国家資格をもつ専門家がみなさんの健康を支えます。</p>
+    <div class="cta">
+      <a href="#about" class="btn fill">はじめての方へ</a>
+      <a href="#evidence" class="btn">科学的な根拠を見る</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="strip">
+  <div class="wrap">
+    <div class="stat"><div class="num">1500<span style="font-size:1.1rem">年+</span></div><div class="lbl">日本での<br>受容の歴史</div></div>
+    <div class="stat"><div class="num">82<span style="font-size:1.1rem">校</span></div><div class="lbl">漢方教育を行う<br>大学医学部・医学科（全校）</div></div>
+    <div class="stat"><div class="num">約120<span style="font-size:1.1rem">校</span></div><div class="lbl">あはき師を<br>養成する施設</div></div>
+    <div class="stat"><div class="num">148</div><div class="lbl">保険で使える<br>医療用漢方製剤</div></div>
+    <div class="stat"><div class="num">187</div><div class="lbl">保険で使える<br>生薬の種類</div></div>
+    <p class="stripnote">
+      ※「あはき師を養成する施設」の正式な数（2023年時点、募集停止校を除く）は、<b>はり師・きゅう師養成施設が大学12校＋専門学校84校＝96校</b>、<b>あん摩マッサージ指圧師養成施設が大学1校＋専門学校26校＝27校</b>です。多くの施設が両方の資格課程を併せ持つため人数・施設は重複しており、合計の目安として「約120校」と表示しています（特別支援学校の養成課程などは含みません）。
+    </p>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap reveal">
+    <h2 class="title"><span class="en">WHAT IS IT</span>日本の伝統医学とは</h2>
+    <p class="lead">日本の伝統医学の中心にあるのが<b>「漢方（かんぽう）」</b>です。「漢方」は<b>漢方薬</b>そのものを指すこともありますが、より大きな意味では、<b>漢方薬による治療</b>と<b>鍼灸・あん摩マッサージによる施術</b>の両方を含みます。いずれも<b>国家資格</b>をもつ専門家が担い、現代の西洋医学と補い合いながら用いられています。</p>
+    <div class="grid three">
+      <div class="card">
+        <div class="ic">🩺</div>
+        <h3>漢方診療</h3>
+        <p>西洋医学の診断に、東洋医学的な見立て（証）を組み合わせて治療方針を決める、日本で確立された統合的な診療スタイル。<b>医師</b>が行います。</p>
+        <span class="tag">見立てる</span>
+      </div>
+      <div class="card">
+        <div class="ic">🌿</div>
+        <h3>漢方薬による治療</h3>
+        <p>草根木皮などの生薬を組み合わせた「方剤」を用いる薬物療法。医療用の漢方薬は<b>国家資格をもつ医師</b>が処方し、その調合や飲み方の説明は<b>薬剤師</b>が担います。</p>
+        <span class="tag">医師が処方・薬剤師が調剤</span>
+      </div>
+      <div class="card">
+        <div class="ic">🪡</div>
+        <h3>鍼灸・あん摩マッサージ</h3>
+        <p>経穴（ツボ）への鍼やお灸、あん摩・マッサージ・指圧などの手技療法。<b>国家資格をもつあん摩マッサージ指圧師・はり師・きゅう師</b>が施術します。</p>
+        <span class="tag">有資格者が施術</span>
+      </div>
+    </div>
+    <div class="notice" style="margin-top:36px">
+      <strong>「漢方」ということば</strong> ── 狭い意味では「漢方薬」を指しますが、広い意味では<b>漢方薬による治療</b>と<b>鍼灸・あん摩マッサージによる施術</b>をあわせた、日本の伝統医学全体を表します。どちらも担い手はすべて国家資格者で、医療用の漢方薬を処方できるのは<b>医師</b>、その調合や説明は<b>薬剤師</b>、鍼・灸・あん摩マッサージ・指圧はそれぞれ<b>はり師・きゅう師・あん摩マッサージ指圧師</b>が行います。
+    </div>
+  </div>
+</section>
+
+<!-- KAMPO -->
+<section id="kampo" style="background:var(--paper2)">
+  <div class="wrap reveal">
+    <h2 class="title"><span class="en">KAMPO MEDICINE</span>漢方薬を知る</h2>
+    <p class="lead">漢方薬は複数の生薬を一定の比率で組み合わせた「方剤（ほうざい）」です。医療用の漢方薬は<b>国家資格をもつ医師</b>が診察のうえ処方し、その調合や飲み方の説明は<b>薬剤師</b>が担います。健康保険が使える身近な医療の一部です。</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ic">⚖️</div>
+        <h3>「体質」に合わせて選ぶ</h3>
+        <p>同じ症状でも、体力や冷え・のぼせなどの状態（＝証）によって適した処方は変わります。「病名ではなく人を診る」のが漢方の特徴です。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🍵</div>
+        <h3>身近な処方の例</h3>
+        <p>かぜのひきはじめの<b>葛根湯</b>、こむら返りの<b>芍薬甘草湯</b>、胃もたれの<b>六君子湯</b>、冷え・貧血傾向の<b>当帰芍薬散</b>など、目的に応じた処方があります。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🏥</div>
+        <h3>保険で使える148処方</h3>
+        <p>現在、148種類の医療用エキス製剤と187種類の生薬が保険適用に。多くの病院・クリニックで西洋薬と併せて処方されています。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔬</div>
+        <h3>品質は管理されている</h3>
+        <p>医療用漢方製剤は原料生薬の規格や製造工程が管理され、成分が一定になるよう作られています。飲みやすい顆粒（エキス剤）が主流です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THOUGHT 気血水 -->
+<section id="thought">
+  <div class="wrap reveal">
+    <h2 class="title"><span class="en">THE CONCEPT</span>漢方医学の考え方</h2>
+    <p class="lead">漢方医学では、体を「気（き）・血（けつ）・水（すい）」という3つの要素のめぐりでとらえます。このバランスの乱れを見つけ、整えることを治療の基本と考えます。</p>
+    <div class="kbs">
+      <div class="item">
+        <span class="big">氣</span>
+        <h3 class="sans">気 ── いのちの働き</h3>
+        <p>元気・気力といった、体を動かすエネルギー。不足すると疲れやすく、滞ると気分がふさぎがちに。</p>
+      </div>
+      <div class="item">
+        <span class="big">血</span>
+        <h3 class="sans">血 ── めぐる栄養</h3>
+        <p>全身に栄養を運ぶはたらき。不足で肌荒れや不眠、滞りで肩こりや月経トラブルにつながると考えます。</p>
+      </div>
+      <div class="item">
+        <span class="big">水</span>
+        <h3 class="sans">水 ── うるおい</h3>
+        <p>血以外の体液のめぐり。偏るとむくみ・めまい・重だるさなどの不調としてあらわれます。</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:44px;margin-bottom:0">
+      さらに、体力や病気の勢いを見る「<b>虚実（きょじつ）</b>」、冷え・熱を見る「<b>陰陽（いんよう）</b>」といったものさしを組み合わせ、その人の状態＝「<b>証（しょう）</b>」を見立てて処方を決めます。
+    </p>
+  </div>
+</section>
+
+<!-- THERAPY -->
+<section id="therapy" style="background:var(--paper2)">
+  <div class="wrap reveal">
+    <h2 class="title"><span class="en">OTHER THERAPIES</span>鍼灸・あん摩マッサージと養生</h2>
+    <p class="lead">薬だけが伝統医学ではありません。体に直接働きかける鍼灸・あん摩マッサージは、それぞれ<b>国家資格</b>をもつ施術者が担います。日々のくらしを整える「養生」も大切な柱です。</p>
+    <div class="grid three">
+      <div class="card">
+        <div class="ic">🪡</div>
+        <h3>鍼（はり）</h3>
+        <p>髪ほどの細い鍼で経穴を刺激し、痛みや緊張をやわらげます。国家資格をもつ<b>はり師</b>が施術し、肩こり・腰痛などでは一部が保険適用の対象です。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔥</div>
+        <h3>灸（きゅう）</h3>
+        <p>もぐさを燃やす温熱刺激で、冷えやめぐりの改善をねらう療法。国家資格をもつ<b>きゅう師</b>が施術します。家庭用の温灸なども親しまれています。</p>
+      </div>
+      <div class="card">
+        <div class="ic">💆</div>
+        <h3>あん摩マッサージ・指圧</h3>
+        <p>手で体をさすり・押し・もみほぐす手技療法。国家資格をもつ<b>あん摩マッサージ指圧師</b>が施術し、こりや血行の改善をねらいます。</p>
+      </div>
+    </div>
+    <div class="notice" style="margin-top:36px">
+      <strong>それぞれ別の国家資格です</strong> ── 鍼は「はり師」、灸は「きゅう師」、あん摩・マッサージ・指圧は「あん摩マッサージ指圧師」の資格が必要です。無資格者による施術ではないか、資格の有無を確認すると安心です。
+    </div>
+    <div class="notice" style="margin-top:36px">
+      <strong>「未病（みびょう）」とは？</strong> 病気とはいえないが健康ともいえない、その中間の状態のこと。伝統医学は、この段階で不調のサインに気づき整えることを重視してきました。
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history">
+  <div class="wrap reveal">
+    <h2 class="title"><span class="en">HISTORY</span>漢方の歩み</h2>
+    <p class="lead">中国から伝わった医学は、日本の風土のなかで独自の道を歩みました。一度は衰退しながらも復興し、いま現代医療のなかに息づいています。</p>
+    <div class="tl">
+      <div class="ev">
+        <div class="yr">5〜6世紀ごろ</div>
+        <h4>大陸から医学が伝来</h4>
+        <p>朝鮮半島や中国から医術・薬草の知識が日本へ。以後、遣隋使・遣唐使を通じて本格的に受容されていきます。</p>
+      </div>
+      <div class="ev">
+        <div class="yr">安土桃山〜江戸時代</div>
+        <h4>日本独自の「漢方」へ</h4>
+        <p>中国医学をそのまま踏襲するのではなく、日本の実情に合わせて簡素化・実用化。「漢方」と呼ばれる独自の体系が形づくられました。</p>
+      </div>
+      <div class="ev">
+        <div class="yr">江戸時代後期</div>
+        <h4>「漢方」という呼び名</h4>
+        <p>オランダ由来の西洋医学「蘭方（らんぽう）」と区別するため、従来の医学が「漢方」と呼ばれるようになりました。</p>
+      </div>
+      <div class="ev">
+        <div class="yr">明治時代（1895年）</div>
+        <h4>衰退の時代</h4>
+        <p>医師免許が西洋医学中心に制度化され、漢方医の存続を求める請願が退けられます。漢方は一時、公の医療の表舞台から遠ざかりました。</p>
+      </div>
+      <div class="ev">
+        <div class="yr">1976年（昭和51年）</div>
+        <h4>保険医療への復帰</h4>
+        <p>医療用漢方製剤が本格的に健康保険に収載され、多くの処方が保険で使えるように。漢方が現代医療へ本格復帰します。</p>
+      </div>
+      <div class="ev">
+        <div class="yr">2001年〜現在</div>
+        <h4>医学教育の正式科目に</h4>
+        <p>医学教育のモデル・コア・カリキュラムに漢方が盛り込まれ、現在では全82の大学医学部・医学科で漢方教育が行われています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE -->
+<section id="evidence" style="background:var(--paper2)">
+  <div class="wrap reveal">
+    <h2 class="title"><span class="en">EVIDENCE</span>科学的な根拠</h2>
+    <p class="lead">「漢方＝経験だけ」ではありません。近年は臨床試験で効果を検証する研究が進み、西洋医学の現場でも用いられる処方が増えています。代表的な例を紹介します。</p>
+    <table class="tbl">
+      <thead>
+        <tr><th>処方</th><th>おもに使われる場面</th><th>研究で示されていること</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>大建中湯</td><td>おなかの手術後・腹部膨満</td><td>手術後の腸の動きの回復や、腸閉塞（イレウス）の予防に関する研究が報告されています。</td></tr>
+        <tr><td>抑肝散</td><td>認知症にともなう興奮・易怒</td><td>認知症の行動・心理症状（BPSD）をやわらげる効果が臨床研究で検討されています。</td></tr>
+        <tr><td>六君子湯</td><td>食欲不振・胃もたれ</td><td>機能性ディスペプシアや食欲に関わるホルモンへの作用が研究されています。</td></tr>
+        <tr><td>芍薬甘草湯</td><td>こむら返り・筋けいれん</td><td>速効的に筋肉のけいれんをやわらげる目的で広く用いられています。</td></tr>
+      </tbody>
+    </table>
+    <div class="notice" style="margin-top:34px">
+      漢方薬にもたらされる効果には個人差があり、研究の質や結論も処方ごとに異なります。ここでの記載は「研究が進んでいる例」であり、どなたにも同じ効果を保証するものではありません。
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap reveal">
+    <h2 class="title"><span class="en">Q &amp; A</span>よくある質問</h2>
+    <div class="faq" style="margin-top:20px">
+      <details open>
+        <summary>漢方薬は副作用がなくて安全ですか？</summary>
+        <div class="body">「自然のものだから安全」とは限りません。まれに、むくみや血圧上昇（甘草による偽アルドステロン症）、肝機能や間質性肺炎などの副作用が知られています。決められた量を守り、体調の変化があれば医師・薬剤師に相談してください。</div>
+      </details>
+      <details>
+        <summary>西洋薬と一緒に飲んでもよいですか？</summary>
+        <div class="body">併用されることは多いですが、飲み合わせに注意が必要な場合もあります。服用中の薬やサプリメントは必ず医師・薬剤師に伝えましょう。</div>
+      </details>
+      <details>
+        <summary>どのくらいで効きますか？</summary>
+        <div class="body">こむら返りなどに使う処方のように短時間で実感するものもあれば、体質改善をねらう処方のように数週間〜数か月かけて評価するものもあります。目的によって異なります。</div>
+      </details>
+      <details>
+        <summary>病院と薬局の漢方は違いますか？</summary>
+        <div class="body">医師が処方する「医療用漢方製剤」は保険が使え、成分量も管理されています。薬局で買える一般用漢方は、購入しやすい一方で成分量が異なることがあります。症状が続くときは受診をおすすめします。</div>
+      </details>
+      <details>
+        <summary>どこで相談できますか？</summary>
+        <div class="body">漢方に詳しい医療機関や、漢方専門医のいる病院・クリニックで相談できます。日本東洋医学会などが専門医制度を設けています。まずはかかりつけ医に相談するのもよい方法です。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING NOTICE -->
+<section style="padding-top:0">
+  <div class="wrap reveal">
+    <div class="notice">
+      <strong>ご注意</strong> ── 本サイトは日本の伝統医学について広く知っていただくための啓発・教育を目的としたものです。個々の症状の診断や治療方針は、必ず医師・薬剤師などの専門家にご相談ください。掲載内容は特定の製品や治療を推奨するものではありません。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="flogo">和ごころ</div>
+        <p style="font-size:.86rem;color:#b5a998;max-width:340px">日本で育まれた伝統医学の考え方と、現代医療での役割を、どなたにもわかりやすくお伝えする啓発サイトです。</p>
+      </div>
+      <div>
+        <h5>まなぶ</h5>
+        <a href="#about">伝統医学とは</a>
+        <a href="#kampo">漢方薬を知る</a>
+        <a href="#thought">気血水の考え方</a>
+        <a href="#history">漢方の歴史</a>
+      </div>
+      <div>
+        <h5>ふかめる</h5>
+        <a href="#evidence">科学的な根拠</a>
+        <a href="#faq">よくある質問</a>
+        <a href="#therapy">鍼灸・養生</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 和ごころ ── 日本の伝統医学を知る（啓発サイト・サンプル）</div>
+  </div>
+</footer>
+
+<script>
+  // モバイルメニュー
+  const btn=document.getElementById('menuBtn'),nav=document.getElementById('nav');
+  btn.addEventListener('click',()=>nav.classList.toggle('open'));
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+  // スクロール表示
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
