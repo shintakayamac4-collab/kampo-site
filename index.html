@@ -74,6 +74,8 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:32px 28px;box-shadow:var(--shadow);transition:.25s}
   .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(60,44,30,.12)}
   .card .ic{font-size:2rem;margin-bottom:.4em}
+  .card .needle-ic{line-height:0;margin-bottom:.5em}
+  .card .needle-ic svg{display:block}
   .card h3{font-size:1.22rem;letter-spacing:.05em;margin-bottom:.5em}
   .card p{color:var(--sub);font-size:.95rem}
   .tag{display:inline-block;font-family:sans-serif;font-size:.72rem;color:var(--accent-d);background:#eef2e6;border-radius:20px;padding:3px 12px;margin-top:14px;letter-spacing:.05em}
@@ -284,9 +286,23 @@
     <p class="lead">薬だけが伝統医学ではありません。体に直接働きかける鍼灸・あん摩マッサージは、それぞれ<b>国家資格</b>をもつ施術者が担います。日々のくらしを整える「養生」も大切な柱です。</p>
     <div class="grid three">
       <div class="card">
-        <div class="ic">🪡</div>
+        <div class="ic needle-ic">
+          <svg viewBox="0 0 120 130" width="66" height="72" role="img" aria-label="管鍼つきディスポーザブル鍼のイラスト">
+            <!-- guide tube (管鍼): translucent cylinder -->
+            <rect x="42" y="52" width="26" height="66" rx="8" fill="#cfe0ec" opacity="0.55" stroke="#8fb0c6" stroke-width="1.5"/>
+            <line x1="49" y1="56" x2="49" y2="114" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+            <!-- needle shaft -->
+            <line x1="55" y1="30" x2="55" y2="126" stroke="#b9c2c9" stroke-width="2.4" stroke-linecap="round"/>
+            <line x1="55" y1="30" x2="55" y2="126" stroke="#7d8890" stroke-width="0.8" stroke-linecap="round"/>
+            <!-- coil (spring) handle, SEIRIN J-type style -->
+            <path d="M55 30 q-9 -3 0 -6 q9 -3 0 -6 q-9 -3 0 -6 q9 -3 0 -6 q-9 -3 0 -6" fill="none" stroke="#3f7fb0" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="55" cy="1.5" r="2.6" fill="#3f7fb0"/>
+            <!-- handle base / tube cap accent -->
+            <rect x="40" y="49" width="30" height="6" rx="3" fill="#3f7fb0"/>
+          </svg>
+        </div>
         <h3>鍼（はり）</h3>
-        <p>髪ほどの細い鍼で経穴を刺激し、痛みや緊張をやわらげます。国家資格をもつ<b>はり師</b>が施術し、肩こり・腰痛などでは一部が保険適用の対象です。</p>
+        <p>髪ほどの細い鍼で経穴を刺激し、痛みや緊張をやわらげます。日本では、鍼を細い管に通して軽く叩いて刺す「管鍼（かんしん）法」が主流で、上のイラストのようなセイリン社製などの使い捨て（ディスポーザブル）鍼が広く使われています。国家資格をもつ<b>はり師</b>が施術し、肩こり・腰痛などでは一部が保険適用の対象です。</p>
       </div>
       <div class="card">
         <div class="ic">🔥</div>
@@ -364,8 +380,22 @@
         <tr><td>芍薬甘草湯</td><td>こむら返り・筋けいれん</td><td>速効的に筋肉のけいれんをやわらげる目的で広く用いられています。</td></tr>
       </tbody>
     </table>
+    <h3 class="sans" style="text-align:center;margin:56px 0 10px;font-size:1.2rem;letter-spacing:.06em">鍼治療のエビデンス</h3>
+    <p class="lead" style="margin-bottom:34px">鍼灸についても、とくに痛みの分野で大規模な臨床試験やメタアナリシス（複数研究の統合分析）が進んでいます。日本の「慢性疼痛診療ガイドライン（2021）」でも、鍼治療は慢性の痛みに対して行うことが提案されています。</p>
+    <table class="tbl">
+      <thead>
+        <tr><th>対象</th><th>おもに使われる場面</th><th>研究で示されていること</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>慢性の腰痛・首の痛み</td><td>長引く腰痛・肩こり・頸部痛</td><td>大規模な統合分析で、痛みや生活の支障をやわらげる効果が示され、ガイドラインでも施術が提案されています。</td></tr>
+        <tr><td>変形性膝関節症</td><td>ひざの痛み・こわばり</td><td>複数のRCTをまとめたレビュー（Vickersら, 2018など）で、無治療や「見せかけの鍼」より痛みの軽減が報告されています。</td></tr>
+        <tr><td>片頭痛の予防</td><td>くり返す片頭痛</td><td>2020年のレビューで、予防薬と同等以上の効果が示され、副作用による中断が少ないと報告されています。</td></tr>
+        <tr><td>緊張型頭痛</td><td>頭をしめつけるような頭痛</td><td>発作の頻度を減らす効果が臨床研究で検討されています。</td></tr>
+        <tr><td>吐き気・嘔吐</td><td>術後や乗り物酔いなど</td><td>手首の経穴（内関）への刺激による制吐効果が数多くの研究で報告されています。</td></tr>
+      </tbody>
+    </table>
     <div class="notice" style="margin-top:34px">
-      漢方薬にもたらされる効果には個人差があり、研究の質や結論も処方ごとに異なります。ここでの記載は「研究が進んでいる例」であり、どなたにも同じ効果を保証するものではありません。
+      漢方薬・鍼灸のいずれも、効果には個人差があり、研究の質や結論も対象ごとに異なります。ここでの記載は「研究が進んでいる例」であり、どなたにも同じ効果を保証するものではありません。気になる症状は、医師・薬剤師や有資格の施術者にご相談ください。
     </div>
   </div>
 </section>
